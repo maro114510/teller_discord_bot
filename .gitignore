@@ -1,0 +1,44 @@
+# Copyright (c) Nohira Atsuki. All rights reserved.
+
+### Python ###
+# cache
+# __pycache__
+
+# Environments
+# .env
+# .venv
+# env/
+# venv/
+# poetry.lock
+# poetry.toml
+
+### Golang ###
+# Unignore all with extensions
+# *
+# !*/
+# !*.*
+# *.txt
+# !Makefile
+
+### Rust ###
+# debug/
+# target/
+# Cargo.lock
+# **/*.rs.bk
+# *.pdb
+
+
+### others ###
+# *.jpg
+# *.jpeg
+# *.png
+# *.mp4
+# *.json
+
+
+### macOS ###
+# General
+.DS_Store
+
+
+# End Of Ignore
