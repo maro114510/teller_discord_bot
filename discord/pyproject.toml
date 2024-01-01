@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "discord.py>=2.3.2",
     "python-dotenv>=1.0.0",
+    "requests>=2.31.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -21,10 +22,15 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "black>=23.12.1",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/discord"]
+
+[tool.black]
+line-length = 120
