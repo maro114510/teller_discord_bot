@@ -18,7 +18,8 @@ jobs:
           branch: main
       - name: Install Dependencies
         run: |
-          cd discord
+          pwd
+          ls -al 
           rye sync
       - name: Checkout
         uses: actions/checkout@v3
