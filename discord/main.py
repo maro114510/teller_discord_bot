@@ -1,16 +1,34 @@
 
 import requests
 import os
+import sys
+import logging
 from io import StringIO
 from datetime import datetime, timedelta
 import discord
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
 
+log_filename = "logs/log_" + datetime.now().strftime("%Y%m%d") + ".logs"
+
+if not os.path.exists("logs"):
+    os.makedirs("logs")
+#--- end of if ---
+
+# logging setting
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s - %(levelname)s - %(filename)s(func:%(funcName)s, line:%(lineno)d)] %(message)s",
+    encoding="utf-8",
+    stream=sys.stdout
+)
+
+logger = logging.getLogger(__name__)
+
 load_dotenv()
 TELLER_TOKEN = os.getenv("TELLER_TOKEN")
 HORI_WEBHOOK= os.getenv("HORI_WEBHOOK")
-TEST_WEBHOOK_URL = os.getenv("TEST_WEBHOOK")
+TEST_WEBHOOK = os.getenv("TEST_WEBHOOK")
 
 intents = discord.Intents.default()
 intents.members = True
@@ -25,7 +43,7 @@ bot = commands.Bot(
 
 @bot.event
 async def on_ready():
-	print("Bot is ready!")
+	logger.info("Bot is ready!")
 
 @bot.command(
 	name="message",
@@ -56,15 +74,15 @@ async def get_message(ctx: commands.Context, channel: discord.TextChannel) -> No
 
 	for msg in messages:
 		res = requests.post(
-			TEST_WEBHOOK_URL,
+			TEST_WEBHOOK,
 			json={
 				"content": msg,
 			}
 		)
 		if res.status_code != 204:
-			print("Error: ", res.status_code)
+			logger.error("Error: ", res.status_code)
 		elif res.status_code == 204:
-			print("Success")
+			logger.info("Success")
 		#--- end of if ---
 	#--- end of loop ---
 #--- end of def ---
