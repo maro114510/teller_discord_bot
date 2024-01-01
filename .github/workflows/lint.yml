@@ -6,6 +6,9 @@ on:
 
 jobs:
   flake3:
+    defaults:
+      run:
+        working-directory: discord
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
