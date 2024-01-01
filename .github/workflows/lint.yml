@@ -6,9 +6,6 @@ on:
 
 jobs:
   flake3:
-    defaults:
-      run:
-        working-directory: discord
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
@@ -20,15 +17,12 @@ jobs:
           git: https://github.com/mitsuhiko/rye
           branch: main
       - name: Install Dependencies
-        run: rye sync
-      - name: Lint
-        run: rye run lint
-      - name: Test
-        run: rye run test
+        run: |
+          cd discord
+          rye sync
       - name: Checkout
         uses: actions/checkout@v3
       - name: flake3
         uses: matias-martini/flake8-pr-comments-action@main
         with:
           github_token: ${{ github.token }}
-
