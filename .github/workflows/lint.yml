@@ -1,7 +1,6 @@
 name: Lint python file
 
 on:
-  # PR中にPushしたときに発火
   pull_request:
     types: [opened, reopened, synchronize]
 
@@ -11,10 +10,18 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - name: Setup
-        uses: actions/setup-python@v4
+      - name: Install Rye
+        uses: baptiste0928/cargo-install@v2
         with:
-          python-version: 3.11.3
+          crate: rye
+          git: https://github.com/mitsuhiko/rye
+          branch: main
+      - name: Install Dependencies
+        run: rye sync
+      - name: Lint
+        run: rye run lint
+      - name: Test
+        run: rye run test
       - name: Checkout
         uses: actions/checkout@v3
       - name: flake3
