@@ -1,0 +1,29 @@
+name: Lint python file
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  flake3:
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Rye
+        uses: baptiste0928/cargo-install@v2
+        with:
+          crate: rye
+          git: https://github.com/mitsuhiko/rye
+          branch: main
+      - name: Install Dependencies
+        run: |
+          cd ..
+          ls -al 
+          #          rye sync
+          #      - name: Checkout
+          #        uses: actions/checkout@v3
+          #      - name: flake3
+          #        uses: matias-martini/flake8-pr-comments-action@main
+          #        with:
+          #          github_token: ${{ github.token }}
